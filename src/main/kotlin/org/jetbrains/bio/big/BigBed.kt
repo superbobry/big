@@ -204,7 +204,7 @@ class BigBedFile private constructor(
 
                     while (it.hasNext()) {
                         val dataOffset = output.tell()
-                        var leafStart = 0
+                        var leafStart = Int.MAX_VALUE
                         var leafEnd = 0
                         val current = output.with(compression) {
                             for ((_, start, end, rest) in it.asSequence().take(itemsPerSlot)) {
