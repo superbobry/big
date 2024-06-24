@@ -25,7 +25,9 @@ class BigBedFile private constructor(
             numBins: Int,
             cancelledChecker: (() -> Unit)?
     ): Sequence<IndexedValue<BigSummary>> {
-        val coverage = query(input, query, overlaps = true, cancelledChecker = cancelledChecker).aggregate()
+        val coverage = query(input, query, overlaps = true, cancelledChecker = cancelledChecker)
+          .map {it.copy(rest="")}
+          .aggregate()
         var edge = 0
         return query.slice(numBins).mapIndexed { i, bin ->
             val summary = BigSummary()
